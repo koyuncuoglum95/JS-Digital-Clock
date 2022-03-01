@@ -1,25 +1,49 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useEffect } from 'react'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = () => {
+
+  function clockTime() {
+
+    let clock = new Date();
+    let hour = clock.getHours();
+    let minutes = clock.getMinutes();
+    let seconds = clock.getSeconds();
+    var session = "AM";
+
+
+    if(hour === 0) {
+        hour = 12;
+    }
+
+    if(hour > 12) {
+        hour = hour - 12;
+        session = "PM";
+    }
+
+
+    hour = (hour < 10) ? '0' + hour : hour;
+    minutes = (minutes < 10) ? '0' + minutes : minutes;
+    seconds = (seconds < 10) ? '0' + seconds : seconds;
+
+    let time = hour + ':' + minutes + ':' + seconds + " " + session;
+
+    document.getElementById('clock').innerText = time;
+
+    setTimeout(clockTime, 1000);
 }
 
-export default App;
+useEffect(() => {
+  clockTime();
+});
+
+
+  return (
+    <div>
+      <h1 id="app-title">JavaScript Digital Clock</h1>
+      <p id="clock"></p>
+    </div>
+  )
+}
+
+export default App
